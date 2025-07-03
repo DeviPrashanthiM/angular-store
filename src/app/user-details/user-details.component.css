@@ -9,3 +9,14 @@
     flex-direction: column;
     gap: 16px; 
 }
+
+.dialog-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-container {
+    padding-top: 1rem;
+}
