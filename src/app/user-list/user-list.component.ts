@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { Observable, of } from 'rxjs';
 import { User } from '../models/user.model';
+import { MatDialog } from '@angular/material/dialog';
+import { UserDetailsComponent } from '../user-details/user-details.component';
 
 @Component({
   selector: 'app-user-list',
@@ -11,7 +13,9 @@ import { User } from '../models/user.model';
 export class UserListComponent implements OnInit {
   userList$:Observable<User[]> = of([]);
   selectedUser!: User;
-  constructor(private userService: UserService) {}
+
+  private dialog = inject(MatDialog);
+  private userService = inject(UserService)
 
   ngOnInit() {
     this.userList$ = this.userService.getUserList();
@@ -22,6 +26,9 @@ export class UserListComponent implements OnInit {
   }
 
   showUserInfo(user: User) {
-    this.selectedUser = user;
+   this.dialog.open(UserDetailsComponent, {
+    width: '100%',
+    data: {user}
+   })
   }
 }

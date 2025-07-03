@@ -1,22 +1,22 @@
-import { Component, Input, OnChanges, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
+import { Component, Inject, inject, Input, OnChanges, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
 import { User } from '../models/user.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-user-details',
   templateUrl: './user-details.component.html',
   styleUrls: ['./user-details.component.css']
 })
-export class UserDetailsComponent implements OnInit, OnChanges{
-  @Input() selectedUser!:User;
+export class UserDetailsComponent implements OnInit{
 
   userForm!: FormGroup;
 
-  
+  private fb = inject(FormBuilder)
 
-  constructor(private fb: FormBuilder) {
+  private dialogRef = inject(MatDialogRef<UserDetailsComponent>);
 
-  }
+  public data = inject(MAT_DIALOG_DATA);
 
   userFormIntialization()  {
     this.userForm = this.fb.group({
@@ -39,24 +39,16 @@ export class UserDetailsComponent implements OnInit, OnChanges{
   }
 
   updateUserData() {
-    this.userForm.patchValue(this.selectedUser);
+    this.userForm.patchValue(this.data.user);
   }
-
-  ngOnChanges(changes: SimpleChanges) {
-    if(!this.userForm) {
+  ngOnInit(): void {
+   if(this.data?.user) {
       this.userFormIntialization();
-    }
-    if (changes['selectedUser'] && changes['selectedUser'].currentValue) {
-     this.selectedUser = changes['selectedUser'].currentValue;
       this.updateUserData();
     }
   }
-
-
-  ngOnInit(): void {
-   if(!this.userForm) {
-      this.userFormIntialization();
-    }
+  close() {
+    this.dialogRef.close();
   }
 
 
