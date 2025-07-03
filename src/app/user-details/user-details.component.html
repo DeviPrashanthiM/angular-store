@@ -1,0 +1,48 @@
+<div [formGroup]="userForm" class="appFlexColumn" fxLayout="row">
+    <div class="user-container appFlexRow" fxLayout ="row">
+        <mat-form-field appearance="fill">
+            <mat-label>Name</mat-label>
+            <input matInput name="name" formControlName="name" />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>User Name</mat-label>
+            <input matInput name="username" formControlName="username" />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input matInput name="email" formControlName="email" />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Phone</mat-label>
+            <input matInput name="phone" formControlName="phone" />
+        </mat-form-field>
+    </div>
+    <div class="address-container appFlexRow" formGroupName="address">
+        <mat-form-field appearance="fill">
+            <mat-label>Street</mat-label>
+            <input matInput name="street" formControlName="street" />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>City</mat-label>
+            <input matInput name="city" formControlName="city" />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Zipcode</mat-label>
+            <input matInput name="zipcode" formControlName="zipcode" />
+        </mat-form-field>
+    </div>
+    <div class="address-form-container appFlexRow" formGroupName="company">
+        <mat-form-field appearance="fill">
+            <mat-label>Name</mat-label>
+            <input matInput name="name" formControlName="name" />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>City</mat-label>
+            <input matInput name="catchPhrase" formControlName="catchPhrase" />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Zipcode</mat-label>
+            <input matInput name="bs" formControlName="bs" />
+        </mat-form-field>
+    </div>
+</div>

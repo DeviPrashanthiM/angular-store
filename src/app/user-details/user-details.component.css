@@ -1,0 +1,11 @@
+.appFlexRow {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}
+
+.appFlexColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; 
+}
