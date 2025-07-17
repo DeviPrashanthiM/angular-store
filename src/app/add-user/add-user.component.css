@@ -1,0 +1,25 @@
+.add-user-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.radio-container {
+    display: flex;
+    flex-direction: column;
+    gap:'5px'
+}
+
+.mat-label-over-radio {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.addressContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: center;
+}

@@ -1,0 +1,8 @@
+<div class="product-container">
+    <h3>Product List</h3>
+    <ul *ngIf="products$ | async as products">
+        <li *ngFor="let product of products " (click)="showProductInfo(product)">
+            {{product?.title}}
+        </li>
+    </ul>
+</div>
