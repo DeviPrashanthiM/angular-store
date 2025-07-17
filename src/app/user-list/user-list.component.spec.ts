@@ -7,6 +7,8 @@ import { of } from 'rxjs/internal/observable/of';
 import { User } from '../models/user.model';
 import { firstValueFrom } from 'rxjs';
 import { By } from '@angular/platform-browser';
+import { MatDialog } from '@angular/material/dialog';
+import { UserDetailsComponent } from '../user-details/user-details.component';
 
 
 describe('UserListComponent', () => {
@@ -22,10 +24,16 @@ describe('UserListComponent', () => {
     getUserList: jest.fn().mockReturnValue(of(mockUsers))
   }
 
+  const mockDialog = {
+    open: jest.fn().mockReturnValue(of([]))
+  }
+
   beforeEach(async() => {
     await TestBed.configureTestingModule({
       declarations: [UserListComponent],
-      providers:[{ provide : UserService, useValue: mockUserService}],
+      providers:[{ provide : UserService, useValue: mockUserService}, 
+        {provide: MatDialog, useValue: mockDialog}
+      ],
       schemas:[NO_ERRORS_SCHEMA]
     }).compileComponents();
   });
@@ -68,6 +76,17 @@ describe('UserListComponent', () => {
     button[0].nativeElement.click();
     expect(mockUserInfo).toHaveBeenCalledWith(mockUsers[0])
   });
+
+  it('should open uder details dialog with selected user data , on click of user info button', () => {
+    mockDialog.open.mockClear();
+    component.showUserInfo(mockUsers[0]);
+    expect(mockDialog.open).toHaveBeenCalledTimes(1);
+     expect(mockDialog.open).toHaveBeenCalledWith(UserDetailsComponent, {
+      width:'100%',
+      data: {user: mockUsers[0]}
+     })
+        
+  })
 
 
 });

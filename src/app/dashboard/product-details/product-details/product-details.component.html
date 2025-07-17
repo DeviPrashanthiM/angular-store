@@ -1,0 +1,49 @@
+<mat-card>
+  <form  class="product-container" [formGroup]="productForm" (ngSubmit)="onSubmit()">
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>ID</mat-label>
+      <input matInput formControlName="id" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Price</mat-label>
+      <input matInput formControlName="price" type="number" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description" rows="4"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Category</mat-label>
+      <input matInput formControlName="category" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Image URL</mat-label>
+      <input matInput formControlName="image" />
+    </mat-form-field>
+
+    <div class="rating-container" formGroupName="rating">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Rate</mat-label>
+        <input matInput formControlName="rate" type="number" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Count</mat-label>
+        <input matInput formControlName="count" type="number" />
+      </mat-form-field>
+    </div>
+
+    <button mat-raised-button color="primary" type="submit">Submit</button>
+
+  </form>
+</mat-card>

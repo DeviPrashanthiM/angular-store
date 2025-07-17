@@ -3,6 +3,13 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { UserDetailsComponent } from './user-details.component';
 import { User } from '../models/user.model';
 import { SimpleChange, SimpleChanges } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { of } from 'rxjs/internal/observable/of';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { MatButton, MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { compose } from '@ngrx/store';
 
 describe('UserDetailsComponent', () => {
   let component: UserDetailsComponent;
@@ -31,11 +38,23 @@ describe('UserDetailsComponent', () => {
       bs: 'harness real-time e-markets'
     }
   };
+
+  const mockMatDialog = {
+    close: jest.fn().mockReturnValue(of(true))
+  }
+
+  const mockData = () => {
+    return { user: mockUser}
+  }
   
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [UserDetailsComponent]
+      declarations: [UserDetailsComponent],
+      imports:[ReactiveFormsModule, MatCardModule, MatButtonModule, MatIconModule],
+      providers:[{ provide: MatDialogRef<UserDetailsComponent>, useValue: mockMatDialog},
+        { provide: MAT_DIALOG_DATA, useValue: mockData() }
+      ]
     });
     fixture = TestBed.createComponent(UserDetailsComponent);
     component = fixture.componentInstance;
@@ -48,33 +67,18 @@ describe('UserDetailsComponent', () => {
 
   it('should intilaize userform on init', () => {
     component.ngOnInit();
+
+   // component.data = mockData
     expect(component.userForm).toBeDefined();
 
     expect(component.userForm.get('name')).toBeTruthy();
   });
 
-   it('should patch user data on ngOnChanges', () => {
+  it('should patch value when updateUserData is called', () => {
 
-      const changes = {
-        selectedUser: {
-          currentValue: mockUser,
-           previousValue: null,
-          firstChange: true,
-          isFirstChange: () => true
-        }
-      }
-
-      component.ngOnChanges(changes);
-  
+      component.userFormIntialization();
+      component.updateUserData();
       expect(component.userForm.value.email).toBe(mockUser.email)
 
-   });
-
-    it('should patch value when updateUserData is called', () => {
-       component.userFormIntialization();
-      component.selectedUser = mockUser;
-      component.updateUserData();
-       expect(component.userForm.value.email).toBe(mockUser.email)
-
-    })
+  })
 });
